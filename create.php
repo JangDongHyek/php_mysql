@@ -16,15 +16,12 @@ $article = array(
   'description'=>'Hello, web'
 );
 
-$update_link = '';
-
 if(isset($_GET['id'])) {
   $sql = "SELECT * FROM topic WHERE id = {$_GET['id']}";
   $result = mysqli_query($conn,$sql);
   $row = mysqli_fetch_array($result);
   $article['title'] = $row['title'];
   $article['description'] = $row['description'];
-  $update_link = '<a href="update.php?id='.$_GET['id'].'">update</a>';
 }
  ?>
 <!DOCTYPE html>
@@ -38,9 +35,10 @@ if(isset($_GET['id'])) {
     <ol>
         <?=$list?>
     </ol>
-    <a href="create.php">create</a>
-    <?=$update_link?>
-    <h2><?=$article['title']?></h2>
-    <?=$article['description']?>
+    <form class="" action="process_create.php" method="POST">
+      <p> <input type="text" name="title" placeholder="Title.." </p>
+      <p> <textarea name="description" rows="8" cols="80" placeholder="Description.."></textarea> </p>
+      <p> <input type="submit"> </p>
+    </form>
   </body>
 </html>
